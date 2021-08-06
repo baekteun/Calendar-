@@ -52,7 +52,7 @@ class CalendarCellViewModel {
     
     func showMakePlan(_ controller: UIViewController){
         let bottomSheet = MDCBottomSheetController(contentViewController: addPlanViewController())
-        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 300
+        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 600
         bottomSheet.scrimColor = UIColor.black.withAlphaComponent(0.4)
         
         controller.present(bottomSheet, animated: true)

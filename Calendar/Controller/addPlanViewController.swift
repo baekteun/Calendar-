@@ -11,6 +11,7 @@ import RxCocoa
 
 class addPlanViewController: UIViewController{
     // MARK: - Properties
+    let viewModel = addPlanViewModel()
     let disposeBag = DisposeBag()
     let colorSelect = UIButton().then {
         $0.backgroundColor = .systemGreen
@@ -41,6 +42,15 @@ class addPlanViewController: UIViewController{
         $0.locale = Locale(identifier: "Ko_kr")
     }
     
+    let completeButton = UIButton().then {
+        $0.setImage(#imageLiteral(resourceName: "check (1) (1)"), for: .normal)
+        $0.layer.borderWidth = 1.2
+        $0.layer.cornerRadius = 8
+        $0.layer.borderColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        $0.layer.backgroundColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+        $0.clipsToBounds = true
+    }
+    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -59,33 +69,40 @@ class addPlanViewController: UIViewController{
         memoField.rx.didBeginEditing
             .asDriver()
             .drive(onNext: { [self] in
-                if memoField.text == "메모"{
-                    memoField.text = nil
-                    memoField.textColor = .black
-                }
+                viewModel.TextViewDidBegin(memoField)
             })
             .disposed(by: disposeBag)
+        
         memoField.rx.didEndEditing
             .asDriver()
             .drive(onNext: { [self] in
-                if memoField.text == nil || memoField.text == ""{
-                    memoField.text = "메모"
-                    memoField.textColor = .lightGray
-                }
+                viewModel.TextViewDidEnd(memoField)
             })
             .disposed(by: disposeBag)
+        
         memoField.rx.text
             .asDriver()
             .drive(onNext: { memo in
                 Extensions.autoSizingTextView(self.memoField)
             })
             .disposed(by: disposeBag)
+        
         startDate.rx.value
             .subscribe(onNext:{ value in
                 self.endDate.minimumDate = value
             })
             .disposed(by: disposeBag)
         
+        
+    }
+    func addSubview(){
+        view.addSubview(colorSelect)
+        view.addSubview(todoLabel)
+        view.addSubview(todoField)
+        view.addSubview(memoField)
+        view.addSubview(startDate)
+        view.addSubview(endDate)
+        view.addSubview(completeButton)
     }
     
     func configureUI(){
@@ -127,18 +144,16 @@ class addPlanViewController: UIViewController{
             $0.left.equalTo(view).offset(20)
         }
         
-        
+        completeButton.snp.makeConstraints {
+            $0.top.equalTo(endDate.snp.bottom).offset(20)
+            $0.left.equalTo(view).offset(50)
+            $0.right.equalTo(view).offset(-50)
+            $0.height.equalTo(36)
+        }
         
     }
     
-    func addSubview(){
-        view.addSubview(colorSelect)
-        view.addSubview(todoLabel)
-        view.addSubview(todoField)
-        view.addSubview(memoField)
-        view.addSubview(startDate)
-        view.addSubview(endDate)
-    }
+    
     
     
     
