@@ -24,6 +24,15 @@ extension Date {
 }
 
 class Extensions {
+    static func autoSizingTextView(_ textview: UITextView){
+        let size = CGSize(width: textview.frame.width, height: .infinity)
+        let esSize = textview.sizeThatFits(size)
+        textview.constraints.forEach{ (constraint) in
+            if constraint.firstAttribute == .height {
+                constraint.constant = esSize.height
+            }
+        }
+    }
     static func getColor(_ color: String) -> UIColor {
         switch color {
         case "red":
