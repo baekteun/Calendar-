@@ -10,7 +10,7 @@ import RealmSwift
 
 // MARK: - DBModel
 
-class dbPlan: Object {
+class PlanModel: Object {
     @objc dynamic var date: String = ""
     @objc dynamic var score: Int = 1
     @objc dynamic var color: String = ""

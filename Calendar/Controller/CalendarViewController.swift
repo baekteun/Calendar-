@@ -11,17 +11,21 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
+import BEMCheckBox
 import RealmSwift
+
 private let tableReuse = "table"
 private let reuseIdentifier = "calendarCell"
 
-class CalendarViewController: UIViewController {
+
+class CalendarViewController: UIViewController{
+    
     // MARK: - Properties
+    
     let realm = try! Realm()
     let calendar = FSCalendar()
     let viewModel = CalendarCellViewModel()
     let tableview = UITableView()
-    
     lazy var selectedDay: String = formmatter.string(from: Date())
     let disposeBag = DisposeBag()
     private let sections = ["일정","완료"]
@@ -44,8 +48,8 @@ class CalendarViewController: UIViewController {
         tableview.dataSource = self
         calendar.delegate = self
         calendar.dataSource = self
-//        let pl = dbPlan(date: "2021-08-05", score: 2, color: "systemGreen", title: "내 일정", memo: "메모", start: "2021-08-05-13-50", end: "2021-08-06-16-25",isComplete: false, uuid: "\(UUID.init())")
-//        viewModel.createData(pl)
+        
+        
     }
     
     // MARK: - Helpers
@@ -63,6 +67,7 @@ class CalendarViewController: UIViewController {
             $0.height.equalTo(280)
         }
         tableview.register(PlanCell.self, forCellReuseIdentifier: tableReuse)
+        tableview.rowHeight = 70
         calendar.allowsMultipleSelection = false
         calendar.appearance.titleWeekendColor = .red
         calendar.register(CalendarCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -88,11 +93,9 @@ class CalendarViewController: UIViewController {
     
     func bindView(){
         
-        
-        
     }
     
-    func refresh(){
+    func calReload(){
         calendar.reloadData()
         calendar.configureAppearance()
     }
@@ -116,7 +119,7 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
     
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return min(viewModel.getPlan(formmatter.string(from: date)).count,9)
+        return min(viewModel.getPlan(formmatter.string(from: date)).count,6)
     }
 
     
@@ -126,6 +129,7 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
         
         return cell
     }
+    
     func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
         calendar.snp.updateConstraints { (make) in
             make.height.equalTo(bounds.height)
@@ -142,6 +146,7 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return 2
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -149,26 +154,26 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let plan = [viewModel.getPlan(formmatter.string(from: calendar.selectedDate!),false),
-                    viewModel.getPlan(formmatter.string(from: calendar.selectedDate!), true) ]
+        let plan = [viewModel.getPlan(selectedDay,false),
+                    viewModel.getPlan(selectedDay, true) ]
+        print("load")
         return plan[section].count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        let plans = [viewModel.getPlan(formmatter.string(from: calendar.selectedDate!),false),
+                    viewModel.getPlan(formmatter.string(from: calendar.selectedDate!), true) ]
         let cell = tableview.dequeueReusableCell(withIdentifier: tableReuse, for: indexPath) as! PlanCell
-        cell.selectedDay = formmatter.string(from: calendar.selectedDate!)
+        cell.plan = plans[indexPath.section][indexPath.row]
         cell.indexPath = indexPath
-        
-        
+        cell.delegate = self
         return cell
     }
-    
-    
 }
 
 
-extension CalendarViewController: isCompleteDelegate {
-    func didTapCompletebtn() {
+
+extension CalendarViewController: CompleteDelegate{
+    func didComplete() {
         tableview.reloadData()
     }
 }

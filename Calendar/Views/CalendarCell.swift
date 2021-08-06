@@ -12,7 +12,6 @@ import RxCocoa
 class CalendarCell: FSCalendarCell {
     
     let viewModel = CalendarCellViewModel()
-    let tableview = UITableView()
     
     override init!(frame: CGRect) {
         super.init(frame: frame)

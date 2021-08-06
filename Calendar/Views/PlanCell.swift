@@ -7,28 +7,26 @@
 
 import Foundation
 import UIKit
-import RxSwift
 import RxCocoa
+import RxSwift
 import BEMCheckBox
-protocol isCompleteDelegate:class {
-    func didTapCompletebtn()
+
+protocol CompleteDelegate:class {
+    func didComplete()
 }
+
 class PlanCell: UITableViewCell{
     // MARK: - Properties
-    weak var delegate: isCompleteDelegate?
+    weak var delegate: CompleteDelegate?
     let viewModel = CalendarCellViewModel()
-    var selectedDay: String!
-    var indexPath: IndexPath!{
-        didSet{ configureUI()}
+    var plan: PlanModel!{
+        didSet { configureUI()}
     }
-    lazy var planss = [viewModel.getPlan(selectedDay,false),
-                 viewModel.getPlan(selectedDay, true) ]
-    
-    lazy var plan = planss[indexPath.section][indexPath.row]
-    
+    var indexPath: IndexPath?
     lazy var colorLabel = UILabel().then {
         $0.backgroundColor = Extensions.getColor(plan.color)
         $0.layer.cornerRadius = 6
+        $0.clipsToBounds = true
     }
     lazy var completeBtn = BEMCheckBox().then {
         $0.boxType = .square
@@ -38,7 +36,6 @@ class PlanCell: UITableViewCell{
         $0.onTintColor = .systemBlue
         $0.onFillColor = .white
         $0.onCheckColor = .systemBlue
-        $0.setOn(plan.isComplete, animated: true)
     }
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -51,50 +48,43 @@ class PlanCell: UITableViewCell{
     // MARK: - Helpers
     
     func configureUI(){
-        self.textLabel?.text = "      "+plan.title
-        if indexPath.section == 1{
-            let attributedString = NSMutableAttributedString(string: self.textLabel!.text!)
-            attributedString.addAttribute(.baselineOffset, value: 0, range: (attributedString.string as NSString).range(of: attributedString.string))
-
+        completeBtn.setOn(plan.isComplete, animated: true)
+        print(plan.isComplete, plan.title)
+        self.textLabel?.attributedText = nil
+        let attributedString = NSMutableAttributedString(string: "      "+plan.title)
+        attributedString.addAttribute(.baselineOffset, value: 0, range: (attributedString.string as NSString).range(of: attributedString.string))
+        if plan.isComplete == true{
             attributedString.addAttribute(.strikethroughStyle, value: 1, range: (attributedString.string as NSString).range(of: attributedString.string))
-            self.textLabel?.attributedText = attributedString
-        }else{
-            let attributedString = NSMutableAttributedString(string: self.textLabel!.text!)
-            attributedString.addAttribute(.baselineOffset, value: 0, range: (attributedString.string as NSString).range(of: attributedString.string))
-            self.textLabel?.attributedText = attributedString
         }
+        self.textLabel?.attributedText = attributedString
         
         
         self.addSubview(colorLabel)
         colorLabel.snp.makeConstraints {
-//            $0.top.equalTo(self).offset(10)
-//            $0.bottom.equalTo(self).offset(-10)
+            $0.top.equalTo(self).offset(10)
+            $0.bottom.equalTo(self).offset(-10)
             $0.left.equalTo(self)
-            $0.height.equalTo(50)
             $0.width.equalTo(5)
         }
         addSubview(completeBtn)
+        completeBtn.delegate = self
         completeBtn.snp.makeConstraints {
             $0.left.equalTo(colorLabel.snp.right).offset(10)
             $0.width.height.equalTo(20)
             $0.centerY.equalTo(self)
         }
-        completeBtn.delegate = self
+        
         
         
         
     }
 }
 
+
 extension PlanCell: BEMCheckBoxDelegate{
     func didTap(_ checkBox: BEMCheckBox) {
-        if checkBox.on{
-            plan.isComplete = true
-        }else{
-            plan.isComplete = false
-        }
+        plan.isComplete = checkBox.on
         viewModel.updateData(plan)
-        print("debug")
-        self.delegate?.didTapCompletebtn()
+        self.delegate?.didComplete()
     }
 }
