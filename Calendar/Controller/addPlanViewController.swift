@@ -13,6 +13,7 @@ class addPlanViewController: UIViewController{
     // MARK: - Properties
     let viewModel = addPlanViewModel()
     let disposeBag = DisposeBag()
+    
     let colorSelect = UIButton().then {
         $0.backgroundColor = .systemGreen
     }
@@ -57,6 +58,7 @@ class addPlanViewController: UIViewController{
         super.viewDidLoad()
         configureUI()
         bindView()
+        
     }
     
     // MARK: - Actions
@@ -66,6 +68,12 @@ class addPlanViewController: UIViewController{
     
     // MARK: - Helpers
     func bindView(){
+        colorSelect.rx.tap
+            .subscribe(onNext: {
+                self.viewModel.showSelectView()
+            })
+            .disposed(by: disposeBag)
+        
         memoField.rx.didBeginEditing
             .asDriver()
             .drive(onNext: { [self] in

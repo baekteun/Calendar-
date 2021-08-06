@@ -85,7 +85,7 @@ class PlanCell: UITableViewCell{
 extension PlanCell: BEMCheckBoxDelegate{
     func didTap(_ checkBox: BEMCheckBox) {
         plan.isComplete = checkBox.on
-        storage.updateData(plan)
+        PlanStorage.updateData(plan)
         self.delegate?.didComplete()
     }
 }
