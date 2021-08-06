@@ -92,7 +92,11 @@ class CalendarViewController: UIViewController{
     }
     
     func bindView(){
-        
+        addBtn.rx.tap
+            .bind{
+                self.viewModel.showMakePlan(self)
+            }
+            .disposed(by: disposeBag)
     }
     
     func calReload(){
@@ -126,7 +130,6 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
         let cell = calendar.dequeueReusableCell(withIdentifier: reuseIdentifier, for: date, at: position) as! CalendarCell
-        
         return cell
     }
     
@@ -155,13 +158,14 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let plan = [viewModel.getPlan(selectedDay,false),
-                    viewModel.getPlan(selectedDay, true) ]
-        print("load")
+                    viewModel.getPlan(selectedDay, true)]
         return plan[section].count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let plans = [viewModel.getPlan(formmatter.string(from: calendar.selectedDate!),false),
                     viewModel.getPlan(formmatter.string(from: calendar.selectedDate!), true) ]
+        
         let cell = tableview.dequeueReusableCell(withIdentifier: tableReuse, for: indexPath) as! PlanCell
         cell.plan = plans[indexPath.section][indexPath.row]
         cell.indexPath = indexPath
@@ -171,7 +175,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
 }
 
 
-
+// MARK: - Complete
 extension CalendarViewController: CompleteDelegate{
     func didComplete() {
         tableview.reloadData()
