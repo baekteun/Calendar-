@@ -18,6 +18,7 @@ protocol CompleteDelegate:class {
 class PlanCell: UITableViewCell{
     // MARK: - Properties
     weak var delegate: CompleteDelegate?
+    let storage = PlanStorage()
     let viewModel = CalendarCellViewModel()
     var plan: PlanModel!{
         didSet { configureUI()}
@@ -84,7 +85,7 @@ class PlanCell: UITableViewCell{
 extension PlanCell: BEMCheckBoxDelegate{
     func didTap(_ checkBox: BEMCheckBox) {
         plan.isComplete = checkBox.on
-        viewModel.updateData(plan)
+        storage.updateData(plan)
         self.delegate?.didComplete()
     }
 }

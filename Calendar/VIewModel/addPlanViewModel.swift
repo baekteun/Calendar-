@@ -13,6 +13,7 @@ import RxSwift
 import RxCocoa
 
 class addPlanViewModel {
+    let storage = PlanStorage()
     
     func TextViewDidBegin(_ textview: UITextView){
         if textview.text == "메모"{
@@ -25,6 +26,9 @@ class addPlanViewModel {
             textview.text = "메모"
             textview.textColor = .lightGray
         }
+    }
+    func completeAddPlan(_ plan: PlanModel){
+        
     }
     
 }

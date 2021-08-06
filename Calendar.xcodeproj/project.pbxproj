@@ -19,6 +19,8 @@
 		46C936A326BBF630009AD6E4 /* PlanCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C936A226BBF630009AD6E4 /* PlanCell.swift */; };
 		46C936A926BD2856009AD6E4 /* addPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C936A826BD2856009AD6E4 /* addPlanViewController.swift */; };
 		46C936AD26BD6FE2009AD6E4 /* addPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C936AC26BD6FE2009AD6E4 /* addPlanViewModel.swift */; };
+		46C936AF26BD758E009AD6E4 /* PlanStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C936AE26BD758E009AD6E4 /* PlanStorage.swift */; };
+		46C936B126BD78D3009AD6E4 /* ColorPopupController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C936B026BD78D3009AD6E4 /* ColorPopupController.swift */; };
 		CD9C1674CE8F3C64F21CA5CB /* Pods_Calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8ED70705D64236CAB23713C /* Pods_Calendar.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 		46C936A226BBF630009AD6E4 /* PlanCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanCell.swift; sourceTree = "<group>"; };
 		46C936A826BD2856009AD6E4 /* addPlanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addPlanViewController.swift; sourceTree = "<group>"; };
 		46C936AC26BD6FE2009AD6E4 /* addPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addPlanViewModel.swift; sourceTree = "<group>"; };
+		46C936AE26BD758E009AD6E4 /* PlanStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanStorage.swift; sourceTree = "<group>"; };
+		46C936B026BD78D3009AD6E4 /* ColorPopupController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPopupController.swift; sourceTree = "<group>"; };
 		681151C69D99B60FF100060F /* Pods-Calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.release.xcconfig"; path = "Target Support Files/Pods-Calendar/Pods-Calendar.release.xcconfig"; sourceTree = "<group>"; };
 		74504295F6279B031A46F1A1 /* Pods-Calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calendar.debug.xcconfig"; path = "Target Support Files/Pods-Calendar/Pods-Calendar.debug.xcconfig"; sourceTree = "<group>"; };
 		B8ED70705D64236CAB23713C /* Pods_Calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +115,7 @@
 			children = (
 				46BE1C4226B7C2B4002E6DEC /* CalendarViewController.swift */,
 				46C936A826BD2856009AD6E4 /* addPlanViewController.swift */,
+				46C936B026BD78D3009AD6E4 /* ColorPopupController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -120,6 +125,7 @@
 			children = (
 				46C9369A26BAE041009AD6E4 /* CalendarCellViewModel.swift */,
 				46C936AC26BD6FE2009AD6E4 /* addPlanViewModel.swift */,
+				46C936AE26BD758E009AD6E4 /* PlanStorage.swift */,
 			);
 			path = VIewModel;
 			sourceTree = "<group>";
@@ -267,8 +273,10 @@
 				46C9369926BAD8E0009AD6E4 /* CalendarCell.swift in Sources */,
 				46C9369726BAC66D009AD6E4 /* Extensions.swift in Sources */,
 				46BE1C4926B7D6ED002E6DEC /* PlanModel.swift in Sources */,
+				46C936AF26BD758E009AD6E4 /* PlanStorage.swift in Sources */,
 				46C936AD26BD6FE2009AD6E4 /* addPlanViewModel.swift in Sources */,
 				46C9369B26BAE041009AD6E4 /* CalendarCellViewModel.swift in Sources */,
+				46C936B126BD78D3009AD6E4 /* ColorPopupController.swift in Sources */,
 				46BE1C3026B7C1B9002E6DEC /* SceneDelegate.swift in Sources */,
 				46BE1C4326B7C2B4002E6DEC /* CalendarViewController.swift in Sources */,
 				46C936A926BD2856009AD6E4 /* addPlanViewController.swift in Sources */,

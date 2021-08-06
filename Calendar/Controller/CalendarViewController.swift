@@ -25,6 +25,7 @@ class CalendarViewController: UIViewController{
     let realm = try! Realm()
     let calendar = FSCalendar()
     let viewModel = CalendarCellViewModel()
+    let storage = PlanStorage()
     let tableview = UITableView()
     lazy var selectedDay: String = formmatter.string(from: Date())
     let disposeBag = DisposeBag()
@@ -125,7 +126,7 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
     
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return min(viewModel.getPlan(formmatter.string(from: date)).count,6)
+        return min(storage.getPlan(formmatter.string(from: date)).count,6)
     }
 
     
@@ -159,14 +160,14 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let plan = [viewModel.getPlan(selectedDay,false),
-                    viewModel.getPlan(selectedDay, true)]
+        let plan = [storage.getPlan(selectedDay,false),
+                    storage.getPlan(selectedDay, true)]
         return plan[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let plans = [viewModel.getPlan(formmatter.string(from: calendar.selectedDate!),false),
-                    viewModel.getPlan(formmatter.string(from: calendar.selectedDate!), true) ]
+        let plans = [storage.getPlan(formmatter.string(from: calendar.selectedDate!),false),
+                    storage.getPlan(formmatter.string(from: calendar.selectedDate!), true) ]
         
         let cell = tableview.dequeueReusableCell(withIdentifier: tableReuse, for: indexPath) as! PlanCell
         cell.plan = plans[indexPath.section][indexPath.row]
