@@ -70,7 +70,8 @@ class addPlanViewController: UIViewController{
     func bindView(){
         colorSelect.rx.tap
             .subscribe(onNext: {
-                self.viewModel.showSelectView()
+                UIColorPickerViewController().delegate = self
+                self.viewModel.selectColor(self)
             })
             .disposed(by: disposeBag)
         
@@ -160,9 +161,9 @@ class addPlanViewController: UIViewController{
         }
         
     }
-    
-    
-    
-    
-    
+}
+extension addPlanViewController: UIColorPickerViewControllerDelegate{
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        colorSelect.backgroundColor = viewController.selectedColor
+    }
 }
