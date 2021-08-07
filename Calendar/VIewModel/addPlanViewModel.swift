@@ -30,11 +30,6 @@ class addPlanViewModel {
     }
     
     func selectColor(_ controller: UIViewController){
-        let colorSelector = UIColorPickerViewController()
-        colorSelector.selectedColor = .systemGreen
-        colorSelector.supportsAlpha = false
-        controller.present(colorSelector, animated: true, completion: nil)
-        
     }
     func completeAddPlan(_ plan: PlanModel){
         

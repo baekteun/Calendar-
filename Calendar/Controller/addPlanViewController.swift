@@ -14,8 +14,8 @@ class addPlanViewController: UIViewController{
     let viewModel = addPlanViewModel()
     let disposeBag = DisposeBag()
     
-    let colorSelect = UIButton().then {
-        $0.backgroundColor = .systemGreen
+    let colorSelect = UIColorWell(frame: CGRect(x: 0, y: 0, width: 15, height: 15)).then {
+        $0.selectedColor = .systemGreen
     }
     let todoLabel = UILabel().then {
         $0.text = "할일 추가"
@@ -68,12 +68,6 @@ class addPlanViewController: UIViewController{
     
     // MARK: - Helpers
     func bindView(){
-        colorSelect.rx.tap
-            .subscribe(onNext: {
-                UIColorPickerViewController().delegate = self
-                self.viewModel.selectColor(self)
-            })
-            .disposed(by: disposeBag)
         
         memoField.rx.didBeginEditing
             .asDriver()
@@ -120,11 +114,9 @@ class addPlanViewController: UIViewController{
         addSubview()
         
         colorSelect.snp.makeConstraints {
-            $0.top.equalTo(view).offset(65)
-            $0.left.equalTo(view).offset(20)
-            $0.width.height.equalTo(15)
+            $0.top.equalTo(view).offset(60)
+            $0.left.equalTo(view).offset(5)
         }
-        colorSelect.layer.cornerRadius = 7.5
         
         todoLabel.snp.makeConstraints {
             $0.left.equalTo(view).offset(35)
@@ -137,7 +129,7 @@ class addPlanViewController: UIViewController{
         }
         
         memoField.snp.makeConstraints {
-            $0.top.equalTo(view).offset(90)
+            $0.top.equalTo(view).offset(110)
             $0.left.equalTo(view).offset(20)
             $0.right.equalTo(view).offset(-20)
             $0.height.equalTo(50)
