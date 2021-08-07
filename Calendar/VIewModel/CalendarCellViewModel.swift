@@ -15,8 +15,11 @@ class CalendarCellViewModel {
     let realm = try! Realm()
     let disposeBag = DisposeBag()
     
-    func showMakePlan(_ controller: UIViewController){
-        let bottomSheet = MDCBottomSheetController(contentViewController: addPlanViewController())
+    func showMakePlan(_ controller: CalendarViewController){
+        let controlle = addPlanViewController()
+        controlle.selectedDay = controller.selectedDay
+        let bottomSheet = MDCBottomSheetController(contentViewController: controlle)
+        
         bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 600
         bottomSheet.scrimColor = UIColor.black.withAlphaComponent(0.4)
         

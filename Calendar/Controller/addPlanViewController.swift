@@ -13,7 +13,7 @@ class addPlanViewController: UIViewController{
     // MARK: - Properties
     let viewModel = addPlanViewModel()
     let disposeBag = DisposeBag()
-    
+    var selectedDay = String()
     let colorSelect = UIColorWell(frame: CGRect(x: 0, y: 0, width: 15, height: 15)).then {
         $0.selectedColor = .systemGreen
     }
@@ -95,6 +95,10 @@ class addPlanViewController: UIViewController{
                 self.endDate.minimumDate = value
             })
             .disposed(by: disposeBag)
+        completeButton.rx.tap
+            .subscribe(onNext: { [self] in
+                self.viewModel.completeAddPlan(self)
+            })
         
         
     }
@@ -152,10 +156,5 @@ class addPlanViewController: UIViewController{
             $0.height.equalTo(36)
         }
         
-    }
-}
-extension addPlanViewController: UIColorPickerViewControllerDelegate{
-    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-        colorSelect.backgroundColor = viewController.selectedColor
     }
 }
