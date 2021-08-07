@@ -14,8 +14,12 @@ import SwiftEntryKit
 import RxCocoa
 import UIColor_Hex_Swift
 
+protocol createDelegate: class {
+    func createDidFinish()
+}
 
 class addPlanViewModel {
+    weak var delegate: createDelegate?
     let formmatter = DateFormatter().then {
         $0.dateFormat = "yyyy-MM-dd-HH-mm"
     }
@@ -44,7 +48,7 @@ class addPlanViewModel {
         let plan = PlanModel(date: controller.selectedDay, color: controller.colorSelect.selectedColor!.hexString(), title: title, memo: controller.memoField.text, start: formmatter.string(from: controller.startDate.date), end: formmatter.string(from: controller.endDate.date), isComplete: false, uuid: uuid)
         PlanStorage.createData(plan)
         controller.dismiss(animated: true) {
-            CalendarViewController().calReload()
+            self.delegate?.createDidFinish()
         }
     }
     

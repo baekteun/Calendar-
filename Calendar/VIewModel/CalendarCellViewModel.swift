@@ -17,6 +17,7 @@ class CalendarCellViewModel {
     
     func showMakePlan(_ controller: CalendarViewController){
         let controlle = addPlanViewController()
+        controlle.viewModel.delegate = controller
         controlle.selectedDay = controller.selectedDay
         let bottomSheet = MDCBottomSheetController(contentViewController: controlle)
         

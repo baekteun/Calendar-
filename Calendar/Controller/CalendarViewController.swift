@@ -186,3 +186,9 @@ extension CalendarViewController: CompleteDelegate{
     }
 }
 
+extension CalendarViewController: createDelegate{
+    func createDidFinish() {
+        calReload()
+        tableview.reloadData()
+    }
+}
