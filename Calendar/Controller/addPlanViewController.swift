@@ -99,6 +99,7 @@ class addPlanViewController: UIViewController{
             .subscribe(onNext: { [self] in
                 self.viewModel.completeAddPlan(self)
             })
+            .disposed(by: disposeBag)
         
         
     }

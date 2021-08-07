@@ -12,6 +12,8 @@ import RealmSwift
 import RxSwift
 import SwiftEntryKit
 import RxCocoa
+import UIColor_Hex_Swift
+
 
 class addPlanViewModel {
     let formmatter = DateFormatter().then {
@@ -33,10 +35,17 @@ class addPlanViewModel {
     
     func completeAddPlan(_ controller: addPlanViewController){
         let uuid = "\(UUID.init())"
-        let plan = PlanModel(date: controller.selectedDay, color: controller.colorSelect.selectedColor!.toHexString(), title: controller.todoField.text ?? "제목 없음", memo: controller.memoField.text, start: formmatter.string(from: controller.startDate.date), end: formmatter.string(from: controller.endDate.date), isComplete: false, uuid: uuid)
-//        PlanStorage.createData(plan)
-        controller.dismiss(animated: true, completion: nil)
-        
+        var title = String()
+        if controller.todoField.text == "" || controller.todoField.text == nil{
+            title = "제목 없음"
+        }else{
+            title = controller.todoField.text!
+        }
+        let plan = PlanModel(date: controller.selectedDay, color: controller.colorSelect.selectedColor!.hexString(), title: title, memo: controller.memoField.text, start: formmatter.string(from: controller.startDate.date), end: formmatter.string(from: controller.endDate.date), isComplete: false, uuid: uuid)
+        PlanStorage.createData(plan)
+        controller.dismiss(animated: true) {
+            CalendarViewController().calReload()
+        }
     }
     
 }

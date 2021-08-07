@@ -102,8 +102,11 @@ class CalendarViewController: UIViewController{
     
     
     func calReload(){
-        calendar.reloadData()
-        calendar.configureAppearance()
+        DispatchQueue.main.async {
+            self.calendar.reloadData()
+            self.calendar.configureAppearance()
+        }
+        
     }
 }
 
@@ -117,7 +120,6 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
         }
         tableview.reloadData()
        
-        
     }
     func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
@@ -183,3 +185,4 @@ extension CalendarViewController: CompleteDelegate{
         tableview.reloadData()
     }
 }
+

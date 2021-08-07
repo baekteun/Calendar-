@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import BEMCheckBox
+import UIColor_Hex_Swift
 
 protocol CompleteDelegate:class {
     func didComplete()
@@ -25,7 +26,7 @@ class PlanCell: UITableViewCell{
     }
     var indexPath: IndexPath?
     lazy var colorLabel = UILabel().then {
-        $0.backgroundColor = Extensions.getColor(plan.color)
+        $0.backgroundColor = .systemGreen
         $0.layer.cornerRadius = 6
         $0.clipsToBounds = true
     }
@@ -67,6 +68,7 @@ class PlanCell: UITableViewCell{
             $0.left.equalTo(self)
             $0.width.equalTo(5)
         }
+        colorLabel.backgroundColor = UIColor(plan.color)
         addSubview(completeBtn)
         completeBtn.delegate = self
         completeBtn.snp.makeConstraints {
