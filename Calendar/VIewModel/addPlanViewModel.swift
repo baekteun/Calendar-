@@ -34,8 +34,9 @@ class addPlanViewModel {
     func completeAddPlan(_ controller: addPlanViewController){
         let uuid = "\(UUID.init())"
         let plan = PlanModel(date: controller.selectedDay, color: controller.colorSelect.selectedColor!.toHexString(), title: controller.todoField.text ?? "제목 없음", memo: controller.memoField.text, start: formmatter.string(from: controller.startDate.date), end: formmatter.string(from: controller.endDate.date), isComplete: false, uuid: uuid)
-        PlanStorage.createData(plan)
+//        PlanStorage.createData(plan)
         controller.dismiss(animated: true, completion: nil)
+        
     }
     
 }
