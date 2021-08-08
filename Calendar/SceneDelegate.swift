@@ -20,7 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = CalendarViewController()
+        let controller = UINavigationController(rootViewController: CalendarViewController())
+        controller.navigationBar.isHidden = true
+        window?.rootViewController = controller
         window?.makeKeyAndVisible()
         
     }

@@ -81,6 +81,7 @@ class CalendarViewController: UIViewController{
         calendar.select(Date())
         
         
+        
         view.addSubview(addBtn)
         addBtn.snp.makeConstraints { b in
             b.width.height.equalTo(70)
@@ -97,6 +98,7 @@ class CalendarViewController: UIViewController{
                 self.viewModel.showMakePlan(self)
             }
             .disposed(by: disposeBag)
+        
     }
     
     
@@ -153,9 +155,9 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 2
     }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return"\( sections[section])"
     }
@@ -164,6 +166,11 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
         let plan = [PlanStorage.getPlan(selectedDay,false),
                     PlanStorage.getPlan(selectedDay, true)]
         return plan[section].count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableview.cellForRow(at: indexPath) as? PlanCell
+        viewModel.showDetailViewController(cell!, self)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
