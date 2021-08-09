@@ -30,15 +30,7 @@ class PlanCell: UITableViewCell{
         $0.layer.cornerRadius = 6
         $0.clipsToBounds = true
     }
-    lazy var completeBtn = BEMCheckBox().then {
-        $0.boxType = .square
-        $0.tintColor = .lightGray
-        $0.onAnimationType = .stroke
-        $0.offAnimationType = .stroke
-        $0.onTintColor = .systemBlue
-        $0.onFillColor = .white
-        $0.onCheckColor = .systemBlue
-    }
+    lazy var completeBtn = completeCheckbox()
     // MARK: - Lifecycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

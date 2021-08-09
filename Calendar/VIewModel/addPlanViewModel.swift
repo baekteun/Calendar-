@@ -21,7 +21,7 @@ protocol createDelegate: class {
 class addPlanViewModel {
     weak var delegate: createDelegate?
     let formmatter = DateFormatter().then {
-        $0.dateFormat = "yyyy-MM-dd-HH-mm"
+        $0.dateFormat = "yyyy-MM-dd HH-mm"
     }
     
     func TextViewDidBegin(_ textview: UITextView){

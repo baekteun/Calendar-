@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		469743C426BFC69B00245435 /* PlanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469743C326BFC69B00245435 /* PlanDetailViewController.swift */; };
 		469743C626BFC81600245435 /* PlanDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469743C526BFC81600245435 /* PlanDetailViewModel.swift */; };
+		469743C826C0AD1E00245435 /* timeSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469743C726C0AD1E00245435 /* timeSetting.swift */; };
+		469743CA26C0AD3E00245435 /* completeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 469743C926C0AD3E00245435 /* completeCheckbox.swift */; };
 		46BE1C2E26B7C1B9002E6DEC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BE1C2D26B7C1B9002E6DEC /* AppDelegate.swift */; };
 		46BE1C3026B7C1B9002E6DEC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46BE1C2F26B7C1B9002E6DEC /* SceneDelegate.swift */; };
 		46BE1C3726B7C1BB002E6DEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 46BE1C3626B7C1BB002E6DEC /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		469743C326BFC69B00245435 /* PlanDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewController.swift; sourceTree = "<group>"; };
 		469743C526BFC81600245435 /* PlanDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanDetailViewModel.swift; sourceTree = "<group>"; };
+		469743C726C0AD1E00245435 /* timeSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeSetting.swift; sourceTree = "<group>"; };
+		469743C926C0AD3E00245435 /* completeCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = completeCheckbox.swift; sourceTree = "<group>"; };
 		46BE1C2A26B7C1B9002E6DEC /* Calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		46BE1C2D26B7C1B9002E6DEC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		46BE1C2F26B7C1B9002E6DEC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				46C936A226BBF630009AD6E4 /* PlanCell.swift */,
+				469743C726C0AD1E00245435 /* timeSetting.swift */,
+				469743C926C0AD3E00245435 /* completeCheckbox.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,12 +276,14 @@
 			files = (
 				46C936A326BBF630009AD6E4 /* PlanCell.swift in Sources */,
 				46BE1C2E26B7C1B9002E6DEC /* AppDelegate.swift in Sources */,
+				469743C826C0AD1E00245435 /* timeSetting.swift in Sources */,
 				46C9369726BAC66D009AD6E4 /* Extensions.swift in Sources */,
 				46BE1C4926B7D6ED002E6DEC /* PlanModel.swift in Sources */,
 				469743C426BFC69B00245435 /* PlanDetailViewController.swift in Sources */,
 				46C936AF26BD758E009AD6E4 /* PlanStorage.swift in Sources */,
 				46C936AD26BD6FE2009AD6E4 /* addPlanViewModel.swift in Sources */,
 				469743C626BFC81600245435 /* PlanDetailViewModel.swift in Sources */,
+				469743CA26C0AD3E00245435 /* completeCheckbox.swift in Sources */,
 				46C9369B26BAE041009AD6E4 /* CalendarCellViewModel.swift in Sources */,
 				46BE1C3026B7C1B9002E6DEC /* SceneDelegate.swift in Sources */,
 				46BE1C4326B7C2B4002E6DEC /* CalendarViewController.swift in Sources */,

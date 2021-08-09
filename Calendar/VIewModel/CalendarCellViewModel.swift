@@ -21,11 +21,12 @@ class CalendarCellViewModel {
         controlle.selectedDay = controller.selectedDay
         let bottomSheet = MDCBottomSheetController(contentViewController: controlle)
         
-        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = 600
+        bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = controller.view.frame.height/1.5
         bottomSheet.scrimColor = UIColor.black.withAlphaComponent(0.4)
         
         controller.present(bottomSheet, animated: true)
     }
+    
     
     func showDetailViewController(_ cell: PlanCell,_ controller1: CalendarViewController ){
         let controller2 = PlanDetailViewController()

@@ -64,7 +64,7 @@ class CalendarViewController: UIViewController{
         }
         tableview.snp.makeConstraints {
             $0.bottom.left.right.equalTo(self.view)
-            $0.height.equalTo(280)
+            $0.height.equalTo(view.frame.height/3)
         }
         tableview.register(PlanCell.self, forCellReuseIdentifier: tableReuse)
         tableview.rowHeight = 70
