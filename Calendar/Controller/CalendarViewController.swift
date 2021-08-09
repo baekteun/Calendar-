@@ -70,7 +70,7 @@ class CalendarViewController: UIViewController{
         tableview.rowHeight = 70
         calendar.allowsMultipleSelection = false
         calendar.appearance.titleWeekendColor = .red
-        calendar.register(CalendarCell.self, forCellReuseIdentifier: reuseIdentifier)
+        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: reuseIdentifier)
         calendar.appearance.headerDateFormat = "YYYY년 M월"
         calendar.appearance.headerTitleOffset = CGPoint(x: 0, y: 10)
         calendar.locale = Locale(identifier: "Ko_kr")
@@ -94,7 +94,9 @@ class CalendarViewController: UIViewController{
     
     func bindView(){
         addBtn.rx.tap
+            .observe(on: MainScheduler.instance)
             .bind{
+                
                 self.viewModel.showMakePlan(self)
             }
             .disposed(by: disposeBag)
@@ -135,7 +137,7 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
     
     
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
-        let cell = calendar.dequeueReusableCell(withIdentifier: reuseIdentifier, for: date, at: position) as! CalendarCell
+        let cell = calendar.dequeueReusableCell(withIdentifier: reuseIdentifier, for: date, at: position)
         return cell
     }
     
@@ -170,7 +172,10 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableview.cellForRow(at: indexPath) as? PlanCell
-        viewModel.showDetailViewController(cell!, self)
+        DispatchQueue.main.async {
+            self.viewModel.showDetailViewController(cell!, self)
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

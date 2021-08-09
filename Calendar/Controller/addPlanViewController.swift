@@ -34,13 +34,11 @@ class addPlanViewController: UIViewController{
         $0.text = "메모"
     }
     
+    
+    
     lazy var startDate = UIDatePicker().then {
         $0.locale = Locale(identifier: "Ko_kr")
         
-    }
-    
-    lazy var endDate = UIDatePicker().then {
-        $0.locale = Locale(identifier: "Ko_kr")
     }
     
     let completeButton = UIButton().then {
@@ -62,9 +60,6 @@ class addPlanViewController: UIViewController{
     }
     
     // MARK: - Actions
-    @objc func minimumUpdate(){
-        endDate.minimumDate = startDate.date
-    }
     
     // MARK: - Helpers
     func bindView(){
@@ -90,11 +85,6 @@ class addPlanViewController: UIViewController{
             })
             .disposed(by: disposeBag)
         
-        startDate.rx.value
-            .subscribe(onNext:{ value in
-                self.endDate.minimumDate = value
-            })
-            .disposed(by: disposeBag)
         completeButton.rx.tap
             .subscribe(onNext: { [self] in
                 self.viewModel.completeAddPlan(self)
@@ -109,7 +99,6 @@ class addPlanViewController: UIViewController{
         view.addSubview(todoField)
         view.addSubview(memoField)
         view.addSubview(startDate)
-        view.addSubview(endDate)
         view.addSubview(completeButton)
     }
     
@@ -145,13 +134,9 @@ class addPlanViewController: UIViewController{
             $0.left.equalTo(view).offset(20)
         }
         
-        endDate.snp.makeConstraints {
-            $0.top.equalTo(startDate.snp.bottom).offset(10)
-            $0.left.equalTo(view).offset(20)
-        }
         
         completeButton.snp.makeConstraints {
-            $0.top.equalTo(endDate.snp.bottom).offset(20)
+            $0.top.equalTo(startDate.snp.bottom).offset(20)
             $0.left.equalTo(view).offset(50)
             $0.right.equalTo(view).offset(-50)
             $0.height.equalTo(36)

@@ -29,9 +29,9 @@ class CalendarCellViewModel {
     
     func showDetailViewController(_ cell: PlanCell,_ controller1: CalendarViewController ){
         let controller2 = PlanDetailViewController()
+        controller2.plan = cell.plan
         controller1.navigationController?.navigationBar.isHidden = false
-        controller2.colorWell.selectedColor = UIColor(cell.plan.color)
-        controller2.planTitle.text = cell.plan.title
+        
         controller1.navigationController?.pushViewController(controller2, animated: true)
         
     }
