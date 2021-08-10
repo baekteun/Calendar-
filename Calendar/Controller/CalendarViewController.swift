@@ -22,7 +22,6 @@ class CalendarViewController: UIViewController{
     
     // MARK: - Properties
     
-    let realm = try! Realm()
     let calendar = FSCalendar()
     let viewModel = CalendarCellViewModel()
     let tableview = UITableView()

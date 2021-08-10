@@ -34,9 +34,20 @@ class addPlanViewController: UIViewController{
         $0.text = "메모"
     }
     
+    let startLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.text = "시작"
+    }
+    let endLabel = UILabel().then {
+        $0.backgroundColor = .clear
+        $0.text = "종료"
+    }
     
+    let startDate = UIDatePicker().then {
+        $0.locale = Locale(identifier: "Ko_kr")
+    }
     
-    lazy var startDate = UIDatePicker().then {
+    let endDate = UIDatePicker().then {
         $0.locale = Locale(identifier: "Ko_kr")
         
     }
@@ -99,6 +110,9 @@ class addPlanViewController: UIViewController{
         view.addSubview(todoField)
         view.addSubview(memoField)
         view.addSubview(startDate)
+        view.addSubview(startLabel)
+        view.addSubview(endDate)
+        view.addSubview(endLabel)
         view.addSubview(completeButton)
     }
     
@@ -134,9 +148,24 @@ class addPlanViewController: UIViewController{
             $0.left.equalTo(view).offset(20)
         }
         
+        startLabel.snp.makeConstraints {
+            $0.top.equalTo(startDate).offset(5)
+            $0.right.equalTo(view).inset(20)
+        }
+        
+        endDate.snp.makeConstraints {
+            $0.top.equalTo(startDate.snp.bottom).offset(10)
+            $0.left.equalTo(startDate)
+        }
+        
+        endLabel.snp.makeConstraints {
+            $0.top.equalTo(endDate).offset(5)
+            $0.right.equalTo(view).inset(20)
+        }
+        
         
         completeButton.snp.makeConstraints {
-            $0.top.equalTo(startDate.snp.bottom).offset(20)
+            $0.top.equalTo(endDate.snp.bottom).offset(20)
             $0.left.equalTo(view).offset(50)
             $0.right.equalTo(view).offset(-50)
             $0.height.equalTo(36)
