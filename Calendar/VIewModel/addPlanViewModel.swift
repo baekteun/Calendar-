@@ -45,7 +45,7 @@ class addPlanViewModel {
         }else{
             title = controller.todoField.text!
         }
-        let plan = PlanModel(date: controller.selectedDay, color: controller.colorSelect.selectedColor!.hexString(), title: title, memo: controller.memoField.text, start: formmatter.string(from: controller.startDate.date), isComplete: false, uuid: uuid)
+        let plan = PlanModel(date: controller.selectedDay, color: controller.colorSelect.selectedColor!.hexString(), title: title, memo: controller.memoField.text, start: formmatter.string(from: controller.startDate.date), end: <#String#>, isComplete: false, uuid: uuid)
         PlanStorage.createData(plan)
         controller.dismiss(animated: true) {
             self.delegate?.createDidFinish()
