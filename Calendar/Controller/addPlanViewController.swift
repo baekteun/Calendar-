@@ -34,18 +34,11 @@ class addPlanViewController: UIViewController{
         $0.text = "메모"
     }
     
-    let startLabel = UILabel().then {
-        $0.backgroundColor = .clear
-        $0.text = "시작"
-    }
     let endLabel = UILabel().then {
         $0.backgroundColor = .clear
         $0.text = "종료"
     }
     
-    let startDate = UIDatePicker().then {
-        $0.locale = Locale(identifier: "Ko_kr")
-    }
     
     let endDate = UIDatePicker().then {
         $0.locale = Locale(identifier: "Ko_kr")
@@ -109,8 +102,6 @@ class addPlanViewController: UIViewController{
         view.addSubview(todoLabel)
         view.addSubview(todoField)
         view.addSubview(memoField)
-        view.addSubview(startDate)
-        view.addSubview(startLabel)
         view.addSubview(endDate)
         view.addSubview(endLabel)
         view.addSubview(completeButton)
@@ -143,19 +134,9 @@ class addPlanViewController: UIViewController{
             $0.height.equalTo(50)
         }
         
-        startDate.snp.makeConstraints {
-            $0.top.equalTo(memoField.snp.bottom).offset(10)
-            $0.left.equalTo(view).offset(20)
-        }
-        
-        startLabel.snp.makeConstraints {
-            $0.top.equalTo(startDate).offset(5)
-            $0.right.equalTo(view).inset(20)
-        }
-        
         endDate.snp.makeConstraints {
-            $0.top.equalTo(startDate.snp.bottom).offset(10)
-            $0.left.equalTo(startDate)
+            $0.top.equalTo(memoField.snp.bottom).offset(10)
+            $0.left.equalTo(memoField)
         }
         
         endLabel.snp.makeConstraints {

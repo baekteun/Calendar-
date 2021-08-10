@@ -203,3 +203,12 @@ extension CalendarViewController: createDelegate{
         tableview.reloadData()
     }
 }
+
+
+extension CalendarViewController: detailViewDelegate {
+    func updateDidFinish() {
+        calReload()
+        navigationController?.popViewController(animated: true)
+        tableview.reloadData()
+    }
+}

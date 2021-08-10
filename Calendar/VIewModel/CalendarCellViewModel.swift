@@ -16,10 +16,10 @@ class CalendarCellViewModel {
     let disposeBag = DisposeBag()
     
     func showMakePlan(_ controller: CalendarViewController){
-        let controlle = addPlanViewController()
-        controlle.viewModel.delegate = controller
-        controlle.selectedDay = controller.selectedDay
-        let bottomSheet = MDCBottomSheetController(contentViewController: controlle)
+        let addPlanController = addPlanViewController()
+        addPlanController.viewModel.delegate = controller
+        addPlanController.selectedDay = controller.selectedDay
+        let bottomSheet = MDCBottomSheetController(contentViewController: addPlanController)
         
         bottomSheet.mdc_bottomSheetPresentationController?.preferredSheetHeight = controller.view.frame.height/1.5
         bottomSheet.scrimColor = UIColor.black.withAlphaComponent(0.4)
@@ -31,6 +31,7 @@ class CalendarCellViewModel {
     func showDetailViewController(_ cell: PlanCell,_ controller1: CalendarViewController ){
         let controller2 = PlanDetailViewController()
         controller2.plan = cell.plan
+        controller2.viewModel.delegate = controller1
         controller1.navigationController?.pushViewController(controller2, animated: true)
         
     }

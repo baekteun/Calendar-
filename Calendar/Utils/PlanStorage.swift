@@ -30,17 +30,17 @@ class PlanStorage {
         try! realm.write({
             dats.color = plan.color
             dats.isComplete = plan.isComplete
-            dats.start = plan.start
+            dats.end = plan.end
             dats.title = plan.title
             dats.memo = plan.memo
         })
     }
     static func getPlan(_ day: String) -> [PlanModel]{
-        let plan: [PlanModel] = realm.objects(PlanModel.self).filter("date == %@ ", day).map({PlanModel(date: $0.date, color:$0.color, title: $0.title, memo: $0.memo, start: $0.start,end: $0.end, isComplete: $0.isComplete, uuid: $0.uuid)})
+        let plan: [PlanModel] = realm.objects(PlanModel.self).filter("date == %@ ", day).map({PlanModel(date: $0.date, color:$0.color, title: $0.title, memo: $0.memo, end: $0.end, isComplete: $0.isComplete, uuid: $0.uuid)})
         return plan
     }
     static func getPlan(_ day: String,_ isCompleted: Bool) -> [PlanModel]{
-        let plan: [PlanModel] = realm.objects(PlanModel.self).filter("date == %@ AND isComplete == %@", day, isCompleted).map({PlanModel(date: $0.date,color: $0.color, title: $0.title, memo: $0.memo, start: $0.start,end: $0.end, isComplete: $0.isComplete, uuid: $0.uuid)})
+        let plan: [PlanModel] = realm.objects(PlanModel.self).filter("date == %@ AND isComplete == %@", day, isCompleted).map({PlanModel(date: $0.date,color: $0.color, title: $0.title, memo: $0.memo, end: $0.end, isComplete: $0.isComplete, uuid: $0.uuid)})
         return plan
     }
     
