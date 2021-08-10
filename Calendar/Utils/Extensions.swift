@@ -22,7 +22,11 @@ extension Date {
          return Calendar.current.component(.day, from: self)
     }
     
-    
+    public var toString: String {
+        let formmater = DateFormatter()
+        formmater.dateFormat = "yyyy-MM-dd HH-mm"
+        return formmater.string(from: self)
+    }
 }
 
 class Extensions {
