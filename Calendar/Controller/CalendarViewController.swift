@@ -19,9 +19,8 @@ private let reuseIdentifier = "calendarCell"
 
 
 class CalendarViewController: UIViewController{
-    
     // MARK: - Properties
-    
+    let realm = try! Realm()
     let calendar = FSCalendar()
     let viewModel = CalendarCellViewModel()
     let tableview = UITableView()
@@ -36,6 +35,11 @@ class CalendarViewController: UIViewController{
         $0.titleLabel?.font = UIFont.systemFont(ofSize: 32)
         $0.titleLabel?.tintColor = .black
         $0.backgroundColor = .blue
+    }
+    let toggleBtn = UIButton().then {
+        $0.setTitle("월", for: .normal)
+        $0.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        $0.titleLabel?.textColor = .systemBlue
     }
     
     // MARK: - Lifecycle
@@ -58,12 +62,13 @@ class CalendarViewController: UIViewController{
         view.addSubview(calendar)
         view.addSubview(tableview)
         calendar.snp.makeConstraints { c in
-            c.top.left.right.equalToSuperview()
-            c.bottom.equalTo(self.tableview.snp.top).offset(10)
+            c.left.right.equalToSuperview()
+            c.bottom.equalTo(view.snp.bottom).inset(view.frame.height * 0.33)
+            c.top.equalTo(view.snp.top).offset(10)
         }
         tableview.snp.makeConstraints {
             $0.bottom.left.right.equalTo(self.view)
-            $0.height.equalTo(view.frame.height/3)
+            $0.top.equalTo(calendar.snp.bottom).offset(5)
         }
         tableview.register(PlanCell.self, forCellReuseIdentifier: tableReuse)
         tableview.rowHeight = 70
@@ -89,13 +94,17 @@ class CalendarViewController: UIViewController{
         }
         addBtn.layer.cornerRadius = 35
         
+        view.addSubview(toggleBtn)
+        toggleBtn.snp.makeConstraints {
+            $0.top.left.equalTo(calendar).offset(20)
+            $0.width.height.equalTo(10)
+        }
     }
     
     func bindView(){
         addBtn.rx.tap
             .observe(on: MainScheduler.instance)
             .bind{
-                
                 self.viewModel.showMakePlan(self)
             }
             .disposed(by: disposeBag)
@@ -124,13 +133,10 @@ extension CalendarViewController: FSCalendarDelegate,FSCalendarDataSource,FSCale
         tableview.reloadData()
        
     }
-    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
-    }
-    
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        return min(PlanStorage.getPlan(formmatter.string(from: date)).count,6)
+        let event = realm.objects(PlanModel.self).filter("date == %@ AND isComplete == false",formmatter.string(from: date))
+        return event.count
     }
 
     
@@ -187,12 +193,27 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
         cell.delegate = self
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let cell = tableview.cellForRow(at: indexPath) as! PlanCell
+            let del = realm.objects(PlanModel.self).filter("uuid == %@",cell.plan.uuid)
+            Observable.from(del)
+                .subscribe(Realm.rx.delete())
+                .disposed(by: disposeBag)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            calReload()
+        } else if editingStyle == .insert {
+            
+        }
+    }
 }
 
 
 // MARK: - Complete
 extension CalendarViewController: CompleteDelegate{
     func didComplete() {
+        calReload()
         tableview.reloadData()
     }
 }

@@ -43,6 +43,10 @@ class PlanStorage {
         let plan: [PlanModel] = realm.objects(PlanModel.self).filter("date == %@ AND isComplete == %@", day, isCompleted).map({PlanModel(date: $0.date,color: $0.color, title: $0.title, memo: $0.memo, end: $0.end, isComplete: $0.isComplete, uuid: $0.uuid)})
         return plan
     }
+    static func getPlan(_ uuid: String) -> PlanModel {
+        let plan = realm.object(ofType: PlanModel.self, forPrimaryKey: uuid)!
+        return plan
+    }
     
     
 }

@@ -20,8 +20,8 @@ class PlanDetailViewModel {
     let realm = try! Realm()
     let disposeBag = DisposeBag()
     
-    func planDelete(_ controller: PlanDetailViewController){
-        let plan = realm.object(ofType: PlanModel.self, forPrimaryKey: controller.plan.uuid)
+    func planDelete(_ plas: PlanModel){
+        let plan = realm.object(ofType: PlanModel.self, forPrimaryKey: plas.uuid)
         Observable.just(plan!)
             .subscribe(realm.rx.delete())
             .disposed(by: disposeBag)
