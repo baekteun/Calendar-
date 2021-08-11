@@ -198,7 +198,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
         if editingStyle == .delete {
             let cell = tableview.cellForRow(at: indexPath) as! PlanCell
             let del = realm.objects(PlanModel.self).filter("uuid == %@",cell.plan.uuid)
-            Observable.from(del)
+            Observable.collection(from: del)
                 .subscribe(Realm.rx.delete())
                 .disposed(by: disposeBag)
             tableView.deleteRows(at: [indexPath], with: .fade)
