@@ -61,15 +61,8 @@ class CalendarViewController: UIViewController{
         view.backgroundColor = .white
         view.addSubview(calendar)
         view.addSubview(tableview)
-        calendar.snp.makeConstraints { c in
-            c.left.right.equalToSuperview()
-            c.bottom.equalTo(view.snp.bottom).inset(view.frame.height * 0.33)
-            c.top.equalTo(view.snp.top).offset(10)
-        }
-        tableview.snp.makeConstraints {
-            $0.bottom.left.right.equalTo(self.view)
-            $0.top.equalTo(calendar.snp.bottom).offset(5)
-        }
+        view.addSubview(addBtn)
+        
         tableview.register(PlanCell.self, forCellReuseIdentifier: tableReuse)
         tableview.rowHeight = 70
         calendar.allowsMultipleSelection = false
@@ -84,21 +77,23 @@ class CalendarViewController: UIViewController{
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
         calendar.select(Date())
         
+        calendar.snp.makeConstraints { c in
+            c.left.right.equalToSuperview()
+            c.bottom.equalTo(view.snp.bottom).inset(view.frame.height * 0.33)
+            c.top.equalTo(view.snp.top).offset(view.frame.height/90)
+        }
         
+        tableview.snp.makeConstraints {
+            $0.bottom.left.right.equalTo(self.view)
+            $0.top.equalTo(calendar.snp.bottom).offset(view.frame.height/160)
+        }
         
-        view.addSubview(addBtn)
         addBtn.snp.makeConstraints { b in
-            b.width.height.equalTo(70)
-            b.bottom.equalTo(self.calendar).offset(30)
-            b.right.equalTo(self.view).offset(-30)
+            b.width.height.equalTo(view.frame.width/6)
+            b.bottom.equalTo(self.calendar).offset(view.frame.height/24)
+            b.right.equalTo(self.view).inset(view.frame.width/8.5)
         }
-        addBtn.layer.cornerRadius = 35
-        
-        view.addSubview(toggleBtn)
-        toggleBtn.snp.makeConstraints {
-            $0.top.left.equalTo(calendar).offset(20)
-            $0.width.height.equalTo(10)
-        }
+        addBtn.layer.cornerRadius = (view.frame.width/6) / 2
     }
     
     func bindView(){
@@ -191,6 +186,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource{
         cell.plan = plans[indexPath.section][indexPath.row]
         cell.indexPath = indexPath
         cell.delegate = self
+        
         return cell
     }
     

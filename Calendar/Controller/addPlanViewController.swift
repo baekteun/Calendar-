@@ -113,43 +113,42 @@ class addPlanViewController: UIViewController{
         addSubview()
         
         colorSelect.snp.makeConstraints {
-            $0.top.equalTo(view).offset(60)
-            $0.left.equalTo(view).offset(5)
+            $0.top.equalTo(view.snp.top).offset(view.frame.height/15)
+            $0.left.equalTo(view.snp.left).offset(view.frame.width/100)
         }
         
         todoLabel.snp.makeConstraints {
-            $0.left.equalTo(view).offset(35)
-            $0.top.equalTo(view).offset(35)
+            $0.left.equalTo(view.snp.left).offset(view.frame.width/15)
+            $0.top.equalTo(view.snp.top).offset(view.frame.height/24)
         }
         
         todoField.snp.makeConstraints {
-            $0.left.equalTo(colorSelect.snp.right).offset(10)
-            $0.top.equalTo(view).offset(60)
+            $0.left.equalTo(colorSelect.snp.right).offset(view.frame.width/60)
+            $0.top.equalTo(colorSelect.snp.top)
         }
         
         memoField.snp.makeConstraints {
-            $0.top.equalTo(view).offset(110)
-            $0.left.equalTo(view).offset(20)
-            $0.right.equalTo(view).offset(-20)
-            $0.height.equalTo(50)
+            $0.top.equalTo(todoField.snp.top).offset(view.frame.height/25)
+            $0.left.equalTo(view.snp.left).offset(view.frame.width/20)
+            $0.right.equalTo(view.snp.right).inset(view.frame.width/20)
+            $0.height.equalTo(view.frame.height/16)
         }
         
         endDate.snp.makeConstraints {
-            $0.top.equalTo(memoField.snp.bottom).offset(10)
-            $0.left.equalTo(memoField)
+            $0.top.equalTo(memoField.snp.bottom).offset(view.frame.height/80)
+            $0.left.equalTo(memoField.snp.left)
         }
         
         endLabel.snp.makeConstraints {
-            $0.top.equalTo(endDate).offset(5)
-            $0.right.equalTo(view).inset(20)
+            $0.top.equalTo(endDate.snp.top).offset(view.frame.height/160)
+            $0.right.equalTo(view.snp.right).inset(view.frame.width/30)
         }
         
-        
         completeButton.snp.makeConstraints {
-            $0.top.equalTo(endDate.snp.bottom).offset(20)
-            $0.left.equalTo(view).offset(50)
-            $0.right.equalTo(view).offset(-50)
-            $0.height.equalTo(36)
+            $0.top.equalTo(endDate.snp.bottom).offset(view.frame.height/40)
+            $0.left.equalTo(view.snp.left).offset(view.frame.width/14)
+            $0.right.equalTo(view.snp.right).inset(view.frame.width/14)
+            $0.height.equalTo(view.frame.height/24)
         }
         
     }
